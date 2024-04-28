@@ -1,74 +1,80 @@
 function updateTime() {
   // Los Angeles
-
   let losAngelesElement = document.querySelector("#los-angeles");
   if (losAngelesElement) {
     let losAngelesDateElement = losAngelesElement.querySelector(".date");
     let losAngelesTimeElement = losAngelesElement.querySelector(".time");
-    let losAnglesTime = moment().tz("Amerika/Los_Angeles");
+    let losAngelesTime = moment().tz("America/Los_Angeles");
 
-    losAngelesDateElement.innerHTML = losAnglesTime.format("MMM Do YYYY");
-    losAngelesTimeElement.innerHTML = losAnglesTime.format(
-      "h:mm:ss [<small>] A [</small]"
+    losAngelesDateElement.innerHTML = losAngelesTime.format("MMMM Do YYYY");
+    losAngelesTimeElement.innerHTML = losAngelesTime.format(
+      "h:mm:ss [<small>]A[</small>]"
     );
   }
-  // Sidney
-  let sidneyElement = document.querySelector("#sideny");
-  if (sidneyElement) {
-    let sidneyDateElement = sidneyElement.querySelector(".date");
-    let sidneyTimeElement = sidneyElement.querySelector(".time");
-    let sidneyTime = moment().tz("Amerika/Los_Angeles");
 
-    sidneyDateElement.innerHTML = sidneyTime.format("MMM Do YYYY");
-    sidneyTimeElement.innerHTML = sidneyTime.format(
-      "h:mm:ss [<small>] A [</small]"
+  // Sydney
+  let sydneyElement = document.querySelector("#sidney");
+  if (sydneyElement) {
+    let sydneyDateElement = sydneyElement.querySelector(".date");
+    let sydneyTimeElement = sydneyElement.querySelector(".time");
+    let sydneyTime = moment().tz("Pacific/Auckland");
+
+    sydneyDateElement.innerHTML = sydneyTime.format("MMM Do YYYY");
+    sydneyTimeElement.innerHTML = sydneyTime.format(
+      "h:mm:ss [<small>] A [</small>]"
     );
   }
+
   // Paris
   let parisElement = document.querySelector("#paris");
   if (parisElement) {
     let parisDateElement = parisElement.querySelector(".date");
     let parisTimeElement = parisElement.querySelector(".time");
-    let parisTime = moment().tz("Europa/Paris");
+    let parisTime = moment().tz("Europe/Paris");
 
     parisDateElement.innerHTML = parisTime.format("MMM Do YYYY");
     parisTimeElement.innerHTML = parisTime.format(
-      "h:mm:ss [<small>] A [</small]"
+      "h:mm:ss [<small>] A [</small>]"
     );
   }
-  // Tokio
-  let tokioElement = document.querySelector("#tokio");
-  if (tokioElement) {
-    let tokioDateElement = tokioElement.querySelector(".date");
-    let tokioTimeElement = tokioElement.querySelector(".time");
-    let tokioTime = moment().tz("Asien/Tokio");
 
-    tokioDateElement.innerHTML = tokioTime.format("MMM Do YYYY");
-    tokioTimeElement.innerHTML = tokioTime.format(
-      "h:mm:ss [<small>] A [</small]"
+  // Tokyo
+  let tokyoElement = document.querySelector("#tokyo");
+  if (tokyoElement) {
+    let tokyoDateElement = tokyoElement.querySelector(".date");
+    let tokyoTimeElement = tokyoElement.querySelector(".time");
+    let tokyoTime = moment().tz("Asia/Tokyo");
+
+    tokyoDateElement.innerHTML = tokyoTime.format("MMM Do YYYY");
+    tokyoTimeElement.innerHTML = tokyoTime.format(
+      "h:mm:ss [<small>] A [</small>]"
     );
   }
-  function updateCity(event) {
-    let cityTimeZone = event.traget.value;
-    let cityName = cityTimeZone.replace("_", " ").split("/"[1]);
-    let cityTime = moment().tz(cityTimeZone);
-    let citiesElement = document.querySelector("#cities");
-    citiesElement.innerHTML = `
-        <div class="city">
+}
+
+function updateCity(event) {
+  let cityTimeZone = event.target.value;
+  let cityName = cityTimeZone.replace("_", " ").split("/")[1];
+  let cityTime = moment().tz(cityTimeZone);
+
+  let citiesElement = document.querySelector("#cities");
+  citiesElement.innerHTML = `
+      <div class="city">
         <div>
           <h2>${cityName}</h2>
-          <div class="date">${cityTime.format("MMMM	Do YYYY")}</div>
+          <div class="date">${cityTime.format("MMMM Do YYYY")}</div>
         </div>
         <div class="time">${cityTime.format(
-          "h:mm:ss"
-        )} <small>${cityTime.format("A")}</small></div>
+          "h:mm:ss [<small>]A[</small>]"
+        )}</div>
       </div>
-      `;
-  }
-  updateTime();
-  setInterval(updateTime, 1000);
-
-  let citiesSelectElement = document.querySelector("#city");
-
-  citiesSelectElement.addEventListener("change", updateCity);
+    `;
 }
+
+// Initialisierung der Funktionen
+updateTime();
+setInterval(updateTime, 1000);
+
+// Event-Listener für Änderungen an der Stadt-Auswahl
+let citiesSelectElement = document.querySelector("#city");
+citiesSelectElement.addEventListener("change", updateCity);
